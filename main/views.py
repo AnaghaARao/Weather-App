@@ -35,19 +35,26 @@ def index(request):
             else:
                 pres = "Normal"
 
-            
-            # Prepare data to pass to the template
-            data = {
-                "city": city,
-                "country_code": country_code,
-                "coordinate": coordinate,
-                "temp": temp,
-                "pressure": pres,
-                "humidity": humidity,
-            }
         else:
             # If weather data is not available for the given city
             data = {"error": "Weather data not found for the provided city."}
+
+        # if 'rain' in weather_data:
+        #     rainfall = weather_data['rain']['1h']
+        #     if not rainfall:
+        #         rainfall = 0.1
+
+        # Prepare data to pass to the template
+        data = {
+            "city": city,
+            "country_code": country_code,
+            "coordinate": coordinate,
+            "temp": temp,
+            "pressure": pres,
+            "humidity": humidity,
+            # "rainfall": rainfall,
+        }
+        
     else:
         data = {}
 
