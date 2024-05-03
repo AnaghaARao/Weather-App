@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def index(request):
+    data = {}
     if request.method == 'POST':
         city = request.POST['city']
         api_key = os.getenv("API_KEY")
@@ -39,10 +40,10 @@ def index(request):
             # If weather data is not available for the given city
             data = {"error": "Weather data not found for the provided city."}
 
-        # if 'rain' in weather_data:
-        #     rainfall = weather_data['rain']['1h']
-        #     if not rainfall:
-        #         rainfall = 0.1
+        if 'rain' in weather_data:
+            rainfall = weather_data['rain']['1h']
+            if not rainfall:
+                rainfall = 0.1
 
         # Prepare data to pass to the template
         data = {
@@ -52,10 +53,7 @@ def index(request):
             "temp": temp,
             "pressure": pres,
             "humidity": humidity,
-            # "rainfall": rainfall,
+            "rainfall": rainfall,
         }
-        
-    else:
-        data = {}
 
     return render(request, 'main/index.html', data)
