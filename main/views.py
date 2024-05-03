@@ -23,15 +23,19 @@ def index(request):
         if 'main' in weather_data:
             country_code = weather_data['sys']['country']
             coordinate = f"{weather_data['coord']['lon']} {weather_data['coord']['lat']}"
-            temp = f"{weather_data['main']['temp']}K"
+            temp = f"{round(weather_data['main']['temp']-273.15, 2)}C"
             pressure = weather_data['main']['pressure']
+            humidity = weather_data['main']['humidity']
 
+            
             # Prepare data to pass to the template
             data = {
+                "city": city,
                 "country_code": country_code,
                 "coordinate": coordinate,
                 "temp": temp,
                 "pressure": pressure,
+                "humidity": humidity,
             }
         else:
             # If weather data is not available for the given city
